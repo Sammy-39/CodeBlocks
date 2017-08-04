@@ -1,0 +1,119 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package project2;
+class Video
+{
+    String title;
+    int flag=0;
+    int rating=0;
+    void beingCheckedOut()
+    {
+        flag=1;
+        //return flag;
+        
+    }
+    void  beingReturned()
+    {
+        flag=0;
+        //return flag;
+    }
+    int receiveARating()
+    {
+        return rating;
+    }
+    
+}
+class VideoStore 
+{
+    static int i=0;
+    Video[] vid=new Video[10];
+    VideoStore()
+    {
+        for(int j=0;j<10;j++)
+        {
+            vid[j]=new Video();
+        }
+    }
+    public void addVideo(String vname)
+    {
+        vid[i].title=vname;
+        i++;
+    }
+    public void receiveRating(String name,int rat)
+    {
+        for(int j=0;j<10;j++)
+        {
+             if(name.equals(vid[j].title))
+             {
+                 vid[j].rating=rat;
+             }
+        }
+       
+    }
+    public void checkOut(String name)
+    {
+        for(int j=0;j<10;j++)
+        {
+             if(name.equals(vid[j].title))
+             {
+                 vid[j].beingCheckedOut();
+             }
+        }
+    }
+    public void returnVideo(String name)
+    {
+        for(int j=0;j<10;j++)
+        {
+             if(name.equals(vid[j].title))
+             {
+                 vid[j].beingReturned();
+             }
+        }
+    }
+    public void listInventory()
+    {
+        String stat;
+        System.out.println("Title\t\tRating\tStatus");
+        for(int j=0;j<i;j++)
+        {
+            if(vid[j].flag==0)
+                stat="Available";
+            else
+                stat="Rented";
+            System.out.println(vid[j].title+"\t"+vid[j].rating+"\t"+stat);
+        }
+    }
+    
+ }
+
+/**
+ *
+ * @author notebook
+ */
+public class VideoStoreLauncher {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        int rating=0;
+        VideoStore vs=new VideoStore();
+        vs.addVideo("The Matrix");
+        vs.addVideo("God FatherII");
+        vs.addVideo("StarWars Ep4");
+        rating=4;
+        vs.receiveRating("The Matrix", rating);
+        rating=5;
+        vs.receiveRating("God FatherII", rating);
+        rating=3;
+        vs.receiveRating("StarWars Ep4", rating);
+        vs.checkOut("The Matrix");
+        vs.checkOut("God FatherII");
+        vs.listInventory();
+    }
+    
+}
